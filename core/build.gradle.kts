@@ -1,7 +1,18 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
-    id("common-library")
+    kotlin("multiplatform")
+    id("com.android.library")
+    id("org.jetbrains.compose")
+    id("maven-publish")
 }
 
+val localProperty = gradleLocalProperties(rootDir)
+
+val currentGroupId= extra["GROUP"] as String
+
+group = currentGroupId
+version = "0.1.0"
 
 kotlin {
     android {
@@ -75,6 +86,33 @@ kotlin {
         ).forEach {
             getByName(it + "Main").dependsOn(iosMain)
             getByName(it + "Test").dependsOn(iosTest)
+        }
+    }
+
+    publishing {
+
+        val publicationsFromMainHost = listOf(
+            android(),
+            iosX64(),
+            iosArm64(),
+            iosSimulatorArm64(),
+        ).map { it.name } + "kotlinMultiplatform"
+
+        publications {
+            matching { it.name in publicationsFromMainHost }.all {
+                val targetPublication = this@all
+                tasks.withType<AbstractPublishToMaven>()
+                    .matching { it.publication == targetPublication }
+                    .configureEach {
+                        onlyIf { findProperty("isMainHost") == "true" }
+                    }
+            }
+        }
+
+        repositories {
+            mavenLocal {
+                url = uri(localProperty.getProperty("maven.local"))
+            }
         }
     }
 }

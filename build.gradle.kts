@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("org.jetbrains.compose") version "1.4.0" apply false
     //id("com.diffplug.spotless") version "6.0.4"
@@ -19,12 +22,17 @@ buildscript {
     }
 }
 
+val localProperties = gradleLocalProperties(rootDir)
+
 allprojects {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        mavenLocal {
+            url = uri(localProperties.getProperty("maven.local"))
+        }
     }
 }
 

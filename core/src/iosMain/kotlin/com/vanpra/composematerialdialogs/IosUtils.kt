@@ -13,6 +13,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.type
@@ -130,7 +131,7 @@ internal actual fun DialogBox(
         ) {
             Box(
                 modifier = Modifier.fillMaxSize()
-                    .background(DrawerDefaults.scrimColor),
+                    .background(color = Color.Black.copy(alpha = 0.5f)),
                 contentAlignment = Alignment.Center
             ) {
                 if (properties.dismissOnClickOutside) {

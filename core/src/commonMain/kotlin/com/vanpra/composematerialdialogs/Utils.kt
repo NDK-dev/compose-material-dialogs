@@ -30,7 +30,7 @@ internal expect fun isSmallDevice(): Boolean
 internal expect fun isLargeDevice(): Boolean
 
 // Dialog
-
+@Composable
 internal expect fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
@@ -93,6 +93,7 @@ data class MaterialDialogProperties(
     val resizable: Boolean = true
 )
 
+@Composable
 internal expect fun getDialogShape(shape: Shape): Shape
 
 @Composable

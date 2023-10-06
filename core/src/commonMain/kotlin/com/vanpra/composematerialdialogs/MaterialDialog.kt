@@ -237,7 +237,8 @@ fun MaterialDialog(
         BoxWithConstraints {
             DialogBox(
                 properties = properties,
-                onDismissRequest = { onCloseRequest(dialogState) }
+                onDismissRequest = { onCloseRequest(dialogState) },
+                scrimColor = Color.Black.copy(alpha = 0.5f)
             ) {
                 val configuration = rememberScreenConfiguration()
 

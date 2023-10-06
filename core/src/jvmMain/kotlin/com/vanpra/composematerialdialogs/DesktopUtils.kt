@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
@@ -43,6 +44,7 @@ internal val LocalScreenConfiguration = compositionLocalOf<ScreenConfiguration>{
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
+    scrimColor: Color,
     content: @Composable () -> Unit
 ) = Dialog(
     onCloseRequest = onDismissRequest,

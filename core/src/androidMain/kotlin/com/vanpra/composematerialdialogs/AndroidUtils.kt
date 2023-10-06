@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
@@ -41,6 +42,7 @@ internal actual fun isLargeDevice(): Boolean {
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
+    scrimColor: Color,
     content: @Composable () -> Unit
 ) = Dialog(
     onDismissRequest = onDismissRequest,
@@ -49,7 +51,7 @@ internal actual fun DialogBox(
         dismissOnClickOutside = properties.dismissOnClickOutside,
         securePolicy = properties.securePolicy.toSecureFlagPolicy(),
         usePlatformDefaultWidth = properties.usePlatformDefaultWidth,
-        decorFitsSystemWindows = properties.decorFitsSystemWindows
+        decorFitsSystemWindows = properties.decorFitsSystemWindows,
     ),
     content = content
 )

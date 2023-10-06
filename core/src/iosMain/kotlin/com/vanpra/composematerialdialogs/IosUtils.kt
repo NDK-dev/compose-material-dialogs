@@ -103,6 +103,7 @@ internal val LocalScreenConfiguration = compositionLocalOf<ScreenConfiguration>{
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
+    scrimColor: Color,
     content: @Composable () -> Unit,
 ) {
     val size = remember {
@@ -131,7 +132,7 @@ internal actual fun DialogBox(
         ) {
             Box(
                 modifier = Modifier.fillMaxSize()
-                    .background(color = Color.Black.copy(alpha = 0.5f)),
+                    .background(color = scrimColor),
                 contentAlignment = Alignment.Center
             ) {
                 if (properties.dismissOnClickOutside) {

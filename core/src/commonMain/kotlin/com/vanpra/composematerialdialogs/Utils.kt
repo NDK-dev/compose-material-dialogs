@@ -5,6 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.Placeable
@@ -34,6 +35,7 @@ internal expect fun isLargeDevice(): Boolean
 internal expect fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
+    scrimColor: Color,
     content: @Composable () -> Unit,
 )
 

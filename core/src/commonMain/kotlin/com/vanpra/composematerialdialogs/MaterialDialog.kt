@@ -210,6 +210,7 @@ fun rememberMaterialDialogState(initialValue: Boolean = false): MaterialDialogSt
  */
 @Composable
 fun MaterialDialog(
+    modifier: Modifier = Modifier,
     dialogState: MaterialDialogState = rememberMaterialDialogState(),
     properties: MaterialDialogProperties = MaterialDialogProperties(),
     backgroundColor: Color = MaterialTheme.colors.surface,
@@ -245,7 +246,7 @@ fun MaterialDialog(
                 val maxHeightPx = with(LocalDensity.current) { maxHeight.toPx().toInt() }
                 val padding = configuration.getPadding(maxWidth)
                 Surface(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .dialogMaxSize(maxHeight = maxHeight)
                         .padding(horizontal = padding)

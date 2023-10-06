@@ -44,7 +44,6 @@ internal val LocalScreenConfiguration = compositionLocalOf<ScreenConfiguration>{
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
-    scrimColor: Color,
     content: @Composable () -> Unit
 ) = Dialog(
     onCloseRequest = onDismissRequest,

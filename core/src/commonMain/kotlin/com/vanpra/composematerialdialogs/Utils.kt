@@ -35,7 +35,6 @@ internal expect fun isLargeDevice(): Boolean
 internal expect fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
-    scrimColor: Color,
     content: @Composable () -> Unit,
 )
 

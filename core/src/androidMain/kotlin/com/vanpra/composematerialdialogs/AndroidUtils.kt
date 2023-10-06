@@ -42,7 +42,6 @@ internal actual fun isLargeDevice(): Boolean {
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,
     properties: MaterialDialogProperties,
-    scrimColor: Color,
     content: @Composable () -> Unit
 ) = Dialog(
     onDismissRequest = onDismissRequest,

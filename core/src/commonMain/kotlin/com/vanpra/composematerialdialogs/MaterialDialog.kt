@@ -248,7 +248,6 @@ fun MaterialDialog(
                 val padding = configuration.getPadding(maxWidth)
                 Surface(
                     modifier = modifier
-                        .fillMaxWidth()
                         .dialogMaxSize(maxHeight = maxHeight)
                         .padding(horizontal = padding)
                         .clipToBounds()

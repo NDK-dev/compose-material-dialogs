@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -37,7 +36,6 @@ internal actual fun isLargeDevice(): Boolean {
     return LocalConfiguration.current.screenWidthDp <= 600
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,
@@ -64,10 +62,10 @@ private fun SecurePolicy.toSecureFlagPolicy(): SecureFlagPolicy {
 }
 
 @Composable
-internal actual fun getDialogShape(shape: Shape): Shape = shape
+internal actual fun getDialogShape(isWindowDialog: Boolean, shape: Shape): Shape = shape
 
 @Composable
-internal actual fun ScreenConfiguration.getMaxHeight(): Dp {
+internal actual fun ScreenConfiguration.getMaxHeight(isWindowDialog: Boolean): Dp {
     return if (isLargeDevice()) {
         screenHeightDp.dp - 96.dp
     } else {
@@ -76,15 +74,16 @@ internal actual fun ScreenConfiguration.getMaxHeight(): Dp {
 }
 
 @Composable
-internal actual fun ScreenConfiguration.getPadding(maxWidth: Dp): Dp {
+internal actual fun ScreenConfiguration.getPadding(isWindowDialog: Boolean, maxWidth: Dp): Dp {
     val isDialogFullWidth = screenWidthDp == maxWidth.value.toInt()
     return if (isDialogFullWidth) 16.dp else 0.dp
 }
 
-internal actual fun Modifier.dialogHeight(): Modifier = wrapContentHeight()
+internal actual fun Modifier.dialogHeight(isWindowDialog: Boolean): Modifier = wrapContentHeight()
 
-internal actual fun Modifier.dialogMaxSize(maxHeight: Dp): Modifier = sizeIn(maxHeight = maxHeight, maxWidth = 560.dp)
+internal actual fun Modifier.dialogMaxSize(isWindowDialog: Boolean, maxHeight: Dp): Modifier =
+    sizeIn(maxHeight = maxHeight, maxWidth = 560.dp)
 
-internal actual fun getLayoutHeight(maxHeightPx: Int, layoutHeight: Int): Int {
+internal actual fun getLayoutHeight(isWindowDialog: Boolean, maxHeightPx: Int, layoutHeight: Int): Int {
     return min(maxHeightPx, layoutHeight)
 }

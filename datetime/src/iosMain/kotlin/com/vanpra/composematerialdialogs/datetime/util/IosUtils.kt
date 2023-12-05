@@ -1,6 +1,7 @@
 package com.vanpra.composematerialdialogs.datetime.util
 
 import androidx.compose.ui.text.intl.Locale
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.useContents
 import kotlinx.datetime.DayOfWeek
@@ -18,6 +19,7 @@ import platform.Foundation.NSDateComponents
 import platform.Foundation.calendarIdentifier
 import platform.Foundation.NSLocale as PlatformLocale
 
+@OptIn(ExperimentalForeignApi::class)
 fun LocalTime.toNSDateComponents(): NSDateComponents {
     val components = NSDateComponents()
     components.hour = hour.convert()
@@ -64,9 +66,10 @@ internal actual fun Month.getFullLocalName(locale: Locale) =
         .toString()
 
 internal actual fun DayOfWeek.getShortLocalName(locale: Locale) = getCalendar(locale).shortStandaloneWeekdaySymbols()
-    .getOrNull(ordinal)
+    .getOrNull(toNSCalendarWeekday())
     .toString()
 
+@OptIn(ExperimentalForeignApi::class)
 internal actual fun Month.testLength(year: Int, isLeapYear: Boolean): Int {
     val cal = NSCalendar.currentCalendar()
     val dateComponents = NSDateComponents().apply {
@@ -79,9 +82,15 @@ internal actual fun Month.testLength(year: Int, isLeapYear: Boolean): Int {
 }
 
 internal actual operator fun DayOfWeek.plus(days: Long): DayOfWeek {
-    return DayOfWeek.values()[(ordinal + days % 7).toInt()]
+    return DayOfWeek.values()[((ordinal + days) % 7).toInt()]
 }
 
 internal actual fun DayOfWeek.getNarrowDisplayName(locale: Locale): String = getCalendar(locale).veryShortWeekdaySymbols()
-    .getOrNull(ordinal)
+    .getOrNull(toNSCalendarWeekday())
     .toString()
+
+private fun DayOfWeek.toNSCalendarWeekday() = if (this == DayOfWeek.SUNDAY) {
+    0 // SUNDAY is 7 on ISO and 0 on NSCalendar
+} else {
+    this.ordinal + 1
+}

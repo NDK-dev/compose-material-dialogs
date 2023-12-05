@@ -120,3 +120,6 @@ kotlin {
 android {
     namespace = "com.vanpra.composematerialdialogs.core"
 }
+dependencies {
+    implementation("androidx.wear.compose:compose-material:1.2.1")
+}

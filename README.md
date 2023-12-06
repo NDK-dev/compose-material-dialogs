@@ -17,7 +17,7 @@
 ```gradle
 dependencies {
   ...
-  implementation "jp.co.ndk_group.lib:compose-material-dialogs-core:0.1.0"
+  implementation "jp.co.ndk_group.lib:compose-material-dialogs-core:0.1.1"
   ...
 }
 ```

@@ -7,7 +7,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
@@ -32,13 +31,15 @@ import kotlin.math.min
 )
 annotation class InternalComposeMaterialDialogsApi
 
-actual class AtomicInt actual constructor(initialValue: Int): Number() {
+actual class AtomicInt actual constructor(initialValue: Int) : Number() {
     private val value = atomic(initialValue)
+
     actual constructor() : this(0)
 
     actual fun set(newValue: Int) {
         value.value = newValue
     }
+
     actual fun getAndIncrement(): Int = value.getAndIncrement()
     override fun toByte(): Byte = value.value.toByte()
 
@@ -84,7 +85,8 @@ fun getDialogScreenWidthDp(): Int {
     return LocalScreenConfiguration.current.screenWidthDp
 }
 
-internal val LocalScreenConfiguration = compositionLocalOf<ScreenConfiguration>{ throw IllegalStateException("Unused") }
+internal val LocalScreenConfiguration =
+    compositionLocalOf<ScreenConfiguration> { throw IllegalStateException("Unused") }
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
@@ -112,21 +114,7 @@ internal actual fun DialogBox(
                 usePlatformDefaultWidth = properties.usePlatformDefaultWidth,
             ),
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize()
-                    .background(color = Color.Black.copy(alpha = 0.5f)),
-                contentAlignment = Alignment.Center
-            ) {
-                if (properties.dismissOnClickOutside) {
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                            .pointerInput(onDismissRequest) {
-                                detectTapGestures(onTap = { onDismissRequest() })
-                            }
-                    )
-                }
-                content()
-            }
+            content()
         }
     }
 }
@@ -152,8 +140,13 @@ internal actual fun ScreenConfiguration.getPadding(isWindowDialog: Boolean, maxW
 
 internal actual fun Modifier.dialogHeight(isWindowDialog: Boolean): Modifier = wrapContentHeight()
 
-internal actual fun Modifier.dialogMaxSize(isWindowDialog: Boolean, maxHeight: Dp): Modifier = sizeIn(maxHeight = maxHeight, maxWidth = 560.dp)
+internal actual fun Modifier.dialogMaxSize(isWindowDialog: Boolean, maxHeight: Dp): Modifier =
+    sizeIn(maxHeight = maxHeight, maxWidth = 560.dp)
 
-internal actual fun getLayoutHeight(isWindowDialog: Boolean, maxHeightPx: Int, layoutHeight: Int): Int {
+internal actual fun getLayoutHeight(
+    isWindowDialog: Boolean,
+    maxHeightPx: Int,
+    layoutHeight: Int
+): Int {
     return min(maxHeightPx, layoutHeight)
 }

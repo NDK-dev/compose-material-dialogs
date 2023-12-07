@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.atomicfu.atomic
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
 import platform.UIKit.UIScreen
 import kotlin.math.min
@@ -88,7 +87,6 @@ fun getDialogScreenWidthDp(): Int {
 internal val LocalScreenConfiguration =
     compositionLocalOf<ScreenConfiguration> { throw IllegalStateException("Unused") }
 
-@OptIn(ExperimentalForeignApi::class)
 @Composable
 internal actual fun DialogBox(
     onDismissRequest: () -> Unit,

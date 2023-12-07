@@ -15,7 +15,7 @@ group = currentGroupId
 version = "0.1.1"
 
 kotlin {
-    androidTarget {
+    android {
         publishAllLibraryVariants()
         compilations {
             all {
